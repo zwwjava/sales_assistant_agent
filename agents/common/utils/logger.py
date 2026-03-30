@@ -52,7 +52,7 @@ class LoggerManager:
         handler.setLevel(logging.DEBUG)
         # 定义日志输出格式：时间 - 日志器名称 - 级别 - 日志消息
         handler.setFormatter(logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+            "%(asctime)s - %(levelname)s - %(message)s"
         ))
         # 将配置好的处理器添加到日志记录器中
         self._logger.addHandler(handler)

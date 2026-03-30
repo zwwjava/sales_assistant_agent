@@ -1,72 +1,47 @@
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.prompts import PromptTemplate
 
 from agents.common.common_agent_state import CommonAgentState
+from agents.common.logs import log_node
 from agents.llm_clients import llm
 # 从当前包中导入 LoggerManager，用于获取日志记录器实例以输出运行和调试信息
-from utils.logger import LoggerManager
+from agents.common.utils.logger import LoggerManager
+from agents.main_router_agent.main_router_workflow import MainRouterWorkflow
+
 # 获取全局日志实例，用于在工具加载和调用过程中记录日志
 logger = LoggerManager.get_logger()
 
+from pathlib import Path
+current_dir = Path(__file__).resolve().parent
+
 def create_main_router_agent():
 
+    graph_builder = MainRouterWorkflow(CommonAgentState)
+    main_router_agent = graph_builder.compile()
+
+    @log_node()
     def main_router_node(state: CommonAgentState):
-        message = state["message"]
+        """
+        主路由结点（该节点还是一个子工作流）
+        :param state:
+        :return:
+        """
+
+        # message = state["message"]
 
         # TODO 待完善的功能
         # tools = [
-        #     输入安全,
+        #     输入安全 + 输入重组,
         #     输入模态对齐,
-        #     输入重组,
         #     情绪识别,
         #     对话意图识别,
         #     短期记忆
         # ]
 
-        system_prompt = f"""你是一个情绪识别和意图识别专家。
-        请分析用户输入，识别用户的**情绪分数**和**意图**。
-        情绪分数使用 -1 到 1 的数值：
-        - 1：非常正面（极度高兴、兴奋、满意）
-        - 0.5：正面（开心、满意、感谢）
-        - 0：中性（无情绪波动、陈述事实）
-        - -0.5：负面（不满、失望、抱怨）
-        - -1：非常负面（愤怒、投诉、威胁）
-        意图可选范围：
-        - chat_agent：简单聊天智能体（日常聊天、问候、闲聊）
-        - to_human_agent：转人工（投诉、不满、需要人工处理）
-        - shopping_agent：购物（商品咨询、购买、推荐）
-        - after_sales_agent：售后（退换货、维修、退款、投诉）
-        
-        请以 JSON 格式输出，包含以下字段：
-        - sentiment_score：情绪分数（-1 到 1 之间的浮点数）
-        - intent：识别出的意图（从上述范围中选择）
-        - reason：判断理由（简要说明）
-        示例输出：
-        {{
-          "sentiment_score": "-0.8",
-          "intent": "to_human_agent",
-          "reason": "用户情绪非常负面，明确要求转人工"
-        }}
-        """
+        # 方案1 编码workflow到外部工作流
+        main_router_agent.invoke(state)
 
-        agent_message = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": message}
-        ]
-
-        result = llm.invoke(agent_message)
-
-        logger.info("main_router输出")
-        logger.info(result)
-
-        if len(result.tool_calls) == 0:
-            result = result.content
-
-        return {
-            "messages": [result],
-            "history": "user:lalala\n system:nihao",
-            "cognition": "chat",
-            # "cognition": "shopping",
-            "emotion": 0.5, # 情绪分数
-        }
+        # 方案2 http调用
+        # http 远程调用
+        # main_router_node_http(state)
 
     return main_router_node

@@ -1,14 +1,17 @@
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-
 from agents.common.common_agent_state import CommonAgentState
-from agents.llm_clients import llm
+from agents.common.logs import log_node
 
 # 从当前包中导入 LoggerManager，用于获取日志记录器实例以输出运行和调试信息
-from utils.logger import LoggerManager
+from agents.common.utils.logger import LoggerManager
 # 获取全局日志实例，用于在工具加载和调用过程中记录日志
 logger = LoggerManager.get_logger()
 
+from pathlib import Path
+current_dir = Path(__file__).resolve().parent
+
 def create_output_agent():
+
+    @log_node()
     def output_node(state: CommonAgentState):
         # print(state)
         message = state["messages"][-1]

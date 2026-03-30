@@ -5,7 +5,7 @@ import os
 # OpenAIEmbeddings：用于调用 OpenAI 的向量/嵌入模型生成文本向量表示
 from langchain_openai import ChatOpenAI,OpenAIEmbeddings
 # 从当前包中导入 LoggerManager，用于获取日志记录器实例以输出运行和调试信息
-from utils.logger import LoggerManager
+from agents.common.utils.logger import LoggerManager
 
 # 获取全局日志实例，用于在工具加载和调用过程中记录日志
 logger = LoggerManager.get_logger()

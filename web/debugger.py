@@ -7,7 +7,7 @@
 from agents.common.common_agent_state import CommonAgentState
 from workflow.agent2b_workflow import Agents2BWorkflow
 # 从当前包中导入 LoggerManager，用于获取日志记录器实例以输出运行和调试信息
-from utils.logger import LoggerManager
+from agents.common.utils.logger import LoggerManager
 # 获取全局日志实例，用于在工具加载和调用过程中记录日志
 logger = LoggerManager.get_logger()
 
@@ -29,7 +29,7 @@ def process_question(question: str) -> str:
     # 生成状态图
     # try:
     #     with open("agent_diagram.png", "wb") as f:
-    #         f.write(graph.get_graph().draw_mermaid_png())
+    #         f.write(agent.get_graph().draw_mermaid_png())
     #     print("graph build done")
     # except Exception as e:
     #     print(f"graph draw failed, {e}")

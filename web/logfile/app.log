@@ -102,3 +102,692 @@
 2026-03-26 17:39:00,199 - utils.logger - INFO - content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 40, 'prompt_tokens': 312, 'total_tokens': 352, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-2b606f05-7217-9c54-8959-cec9dc027178', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2982-dc80-7a93-88d2-e215f6bc9c49-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 312, 'output_tokens': 40, 'total_tokens': 352, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
 2026-03-26 17:39:02,163 - utils.logger - INFO - chat_agent输出
 2026-03-26 17:39:02,164 - utils.logger - INFO - content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 40, 'prompt_tokens': 93, 'total_tokens': 133, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-14adbf07-f284-9fbe-bc21-6e3170b9a0ca', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2982-efe9-73b3-9280-a7bf4688da0d-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 93, 'output_tokens': 40, 'total_tokens': 133, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 11:11:17,655 - agents.common.utils.logger - INFO - 成功初始化 qwen LLM
+2026-03-27 11:13:03,810 - agents.common.utils.logger - INFO - 成功初始化 qwen LLM
+2026-03-27 11:13:03,873 - agents.common.utils.logger - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 11:13:04,200 - agents.common.utils.logger - ERROR - [main_router_node] Failed after 0.33s: Error code: 401 - {'error': {'message': "You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY). ", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'request_id': 'fe09cd1b-4218-97c7-b5d8-fdaed9919c95'}
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 29, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 56, in main_router_node
+    result = llm.invoke(agent_message)
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_core\language_models\chat_models.py", line 454, in invoke
+    self.generate_prompt(
+    ~~~~~~~~~~~~~~~~~~~~^
+        [self._convert_input(input)],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ).generations[0][0],
+    ^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1201, in generate_prompt
+    return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1010, in generate
+    self._generate_with_cache(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        m,
+        ^^
+    ...<2 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1313, in _generate_with_cache
+    result = self._generate(
+        messages, stop=stop, run_manager=run_manager, **kwargs
+    )
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_openai\chat_models\base.py", line 1380, in _generate
+    raise e
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_openai\chat_models\base.py", line 1375, in _generate
+    raw_response = self.client.with_raw_response.create(**payload)
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\openai\_legacy_response.py", line 367, in wrapped
+    return cast(LegacyAPIResponse[R], func(*args, **kwargs))
+                                      ~~~~^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1211, in create
+    return self._post(
+           ~~~~~~~~~~^
+        "/chat/completions",
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<47 lines>...
+        stream_cls=Stream[ChatCompletionChunk],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': "You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY). ", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'request_id': 'fe09cd1b-4218-97c7-b5d8-fdaed9919c95'}
+2026-03-27 11:16:31,429 - agents.common.utils.logger - INFO - 成功初始化 qwen LLM
+2026-03-27 11:16:31,456 - agents.common.utils.logger - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 11:16:33,847 - agents.common.utils.logger - INFO - main_router输出
+2026-03-27 11:16:33,848 - agents.common.utils.logger - INFO - content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 40, 'prompt_tokens': 312, 'total_tokens': 352, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-09491b4e-5a13-9338-a61c-e5b5fdae7d38', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2d4b-2062-7651-9044-02771ead387d-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 312, 'output_tokens': 40, 'total_tokens': 352, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 11:16:33,849 - agents.common.utils.logger - INFO - [main_router_node] Completed in 2.39s
+2026-03-27 11:16:33,851 - agents.common.utils.logger - INFO - [chat_node] Started with args: ({'messages': [HumanMessage(content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}', additional_kwargs={}, response_metadata={}, id='fe6de1fa-b547-43c3-aaca-7eb54e8cf49e')], 'history': 'user:lalala\n system:nihao', 'message': '你好'},), kwargs: {}
+2026-03-27 11:16:37,986 - agents.common.utils.logger - INFO - chat_agent输出
+2026-03-27 11:16:37,987 - agents.common.utils.logger - INFO - content='您好呀！ 欢迎光临～  \n请问今天有什么可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 43, 'prompt_tokens': 93, 'total_tokens': 136, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-ea240127-9ab8-907f-9ffa-c40890b099a7', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2d4b-29bc-76e2-8c90-7f6fdb80dc2d-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 93, 'output_tokens': 43, 'total_tokens': 136, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 11:16:37,989 - agents.common.utils.logger - INFO - [chat_node] Completed in 4.14s
+2026-03-27 11:16:37,990 - agents.common.utils.logger - INFO - [output_node] Started with args: ({'messages': [HumanMessage(content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}', additional_kwargs={}, response_metadata={}, id='fe6de1fa-b547-43c3-aaca-7eb54e8cf49e'), HumanMessage(content='您好呀！ 欢迎光临～  \n请问今天有什么可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='e6ae2ecb-53b9-4b82-a369-dea74dbc4e5d')], 'history': 'user:lalala\n system:nihao', 'message': '你好'},), kwargs: {}
+2026-03-27 11:16:37,991 - agents.common.utils.logger - INFO - [output_node] Completed in 0.00s
+2026-03-27 11:16:37,992 - agents.common.utils.logger - INFO - workflow结束
+2026-03-27 11:16:37,993 - agents.common.utils.logger - INFO - {'messages': [HumanMessage(content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}', additional_kwargs={}, response_metadata={}, id='fe6de1fa-b547-43c3-aaca-7eb54e8cf49e'), HumanMessage(content='您好呀！ 欢迎光临～  \n请问今天有什么可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='e6ae2ecb-53b9-4b82-a369-dea74dbc4e5d')], 'history': 'user:lalala\n system:nihao', 'message': '你好', 'response': HumanMessage(content='您好呀！ 欢迎光临～  \n请问今天有什么可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='e6ae2ecb-53b9-4b82-a369-dea74dbc4e5d')}
+2026-03-27 11:19:35,037 - INFO - 成功初始化 qwen LLM
+2026-03-27 11:19:35,062 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 11:19:36,960 - INFO - main_router输出
+2026-03-27 11:19:36,961 - INFO - content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 40, 'prompt_tokens': 312, 'total_tokens': 352, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-139df2b0-eefa-9646-b659-02dd55c8cfce', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2d4d-ed97-7853-bc38-cb807ef77230-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 312, 'output_tokens': 40, 'total_tokens': 352, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 11:19:36,962 - INFO - [main_router_node] Completed in 1.90s
+2026-03-27 11:19:36,963 - INFO - [chat_node] Started with args: ({'messages': [HumanMessage(content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}', additional_kwargs={}, response_metadata={}, id='17835331-0488-4bee-aa71-d64453886e1d')], 'history': 'user:lalala\n system:nihao', 'message': '你好'},), kwargs: {}
+2026-03-27 11:19:39,665 - INFO - chat_agent输出
+2026-03-27 11:19:39,666 - INFO - content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 40, 'prompt_tokens': 93, 'total_tokens': 133, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-48b9394a-1d73-90fb-81a2-c60147fe0ece', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2d4d-f504-7d71-a58f-897fe072258a-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 93, 'output_tokens': 40, 'total_tokens': 133, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 11:19:39,667 - INFO - [chat_node] Completed in 2.70s
+2026-03-27 11:19:39,669 - INFO - [output_node] Started with args: ({'messages': [HumanMessage(content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}', additional_kwargs={}, response_metadata={}, id='17835331-0488-4bee-aa71-d64453886e1d'), HumanMessage(content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='ccaef25b-7f82-498f-b161-5a7146b91074')], 'history': 'user:lalala\n system:nihao', 'message': '你好'},), kwargs: {}
+2026-03-27 11:19:39,669 - INFO - [output_node] Completed in 0.00s
+2026-03-27 11:19:39,670 - INFO - workflow结束
+2026-03-27 11:19:39,671 - INFO - {'messages': [HumanMessage(content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}', additional_kwargs={}, response_metadata={}, id='17835331-0488-4bee-aa71-d64453886e1d'), HumanMessage(content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='ccaef25b-7f82-498f-b161-5a7146b91074')], 'history': 'user:lalala\n system:nihao', 'message': '你好', 'response': HumanMessage(content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='ccaef25b-7f82-498f-b161-5a7146b91074')}
+2026-03-27 12:20:05,075 - INFO - 成功初始化 qwen LLM
+2026-03-27 12:23:08,999 - INFO - 成功初始化 qwen LLM
+2026-03-27 12:23:51,767 - INFO - 成功初始化 qwen LLM
+2026-03-27 12:24:37,745 - INFO - 成功初始化 qwen LLM
+2026-03-27 12:26:40,678 - INFO - 成功初始化 qwen LLM
+2026-03-27 12:26:40,739 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 12:26:43,978 - INFO - main_router输出
+2026-03-27 12:26:43,979 - INFO - content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 40, 'prompt_tokens': 312, 'total_tokens': 352, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-e6416c61-15b5-96a9-a954-de34bf17cb69', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2d8b-5ae4-7533-b46b-df6921dcf56a-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 312, 'output_tokens': 40, 'total_tokens': 352, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 12:26:43,980 - INFO - [main_router_node] Completed in 3.24s
+2026-03-27 12:26:43,981 - INFO - [chat_node] Started with args: ({'messages': [HumanMessage(content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}', additional_kwargs={}, response_metadata={}, id='4ed09f33-a7b4-4e46-85c8-704bf7eb126f')], 'history': 'user:lalala\n system:nihao', 'message': '你好'},), kwargs: {}
+2026-03-27 12:26:47,332 - INFO - chat_agent输出
+2026-03-27 12:26:47,333 - INFO - content='您好呀！ 欢迎光临～  \n请问今天有什么可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 43, 'prompt_tokens': 93, 'total_tokens': 136, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-12c7de4f-ca14-95bb-9c11-543cc0a30aae', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2d8b-678e-75d0-b626-9d8f53e639f0-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 93, 'output_tokens': 43, 'total_tokens': 136, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 12:26:47,334 - INFO - [chat_node] Completed in 3.35s
+2026-03-27 12:26:47,335 - INFO - [output_node] Started with args: ({'messages': [HumanMessage(content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}', additional_kwargs={}, response_metadata={}, id='4ed09f33-a7b4-4e46-85c8-704bf7eb126f'), HumanMessage(content='您好呀！ 欢迎光临～  \n请问今天有什么可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='671126e4-075b-41c7-bc77-43c941a27e08')], 'history': 'user:lalala\n system:nihao', 'message': '你好'},), kwargs: {}
+2026-03-27 12:26:47,336 - INFO - [output_node] Completed in 0.00s
+2026-03-27 12:26:47,337 - INFO - workflow结束
+2026-03-27 12:26:47,337 - INFO - {'messages': [HumanMessage(content='{\n  "sentiment_score": "0",\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天开场"\n}', additional_kwargs={}, response_metadata={}, id='4ed09f33-a7b4-4e46-85c8-704bf7eb126f'), HumanMessage(content='您好呀！ 欢迎光临～  \n请问今天有什么可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='671126e4-075b-41c7-bc77-43c941a27e08')], 'history': 'user:lalala\n system:nihao', 'message': '你好', 'response': HumanMessage(content='您好呀！ 欢迎光临～  \n请问今天有什么可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='671126e4-075b-41c7-bc77-43c941a27e08')}
+2026-03-27 15:41:22,444 - INFO - 成功初始化 qwen LLM
+2026-03-27 15:41:22,477 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 15:41:22,478 - ERROR - [main_router_node] Failed after 0.00s: [Errno 2] No such file or directory: 'prompt\\system_main_router.txt'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 53, in main_router_node
+    system_prompt = PromptTemplate.from_file(
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_file="./prompt/system_main_router.txt",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        encoding="utf-8"
+        ^^^^^^^^^^^^^^^^
+    ).template
+    ^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_core\prompts\prompt.py", line 253, in from_file
+    template = Path(template_file).read_text(encoding=encoding)
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'prompt\\system_main_router.txt'
+2026-03-27 15:41:44,455 - INFO - 成功初始化 qwen LLM
+2026-03-27 15:41:44,484 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 15:41:44,485 - ERROR - [main_router_node] Failed after 0.00s: [Errno 2] No such file or directory: 'prompt\\system_main_router.md'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 53, in main_router_node
+    system_prompt = PromptTemplate.from_file(
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_file="./prompt/system_main_router.md",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        encoding="utf-8"
+        ^^^^^^^^^^^^^^^^
+    ).template
+    ^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_core\prompts\prompt.py", line 253, in from_file
+    template = Path(template_file).read_text(encoding=encoding)
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'prompt\\system_main_router.md'
+2026-03-27 15:42:16,389 - INFO - 成功初始化 qwen LLM
+2026-03-27 15:42:16,418 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 15:42:16,419 - ERROR - [main_router_node] Failed after 0.00s: [Errno 2] No such file or directory: 'prompt\\system_main_router.md'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 53, in main_router_node
+    system_prompt = PromptTemplate.from_file(
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_file="prompt/system_main_router.md",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        encoding="utf-8"
+        ^^^^^^^^^^^^^^^^
+    ).template
+    ^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_core\prompts\prompt.py", line 253, in from_file
+    template = Path(template_file).read_text(encoding=encoding)
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'prompt\\system_main_router.md'
+2026-03-27 15:42:52,967 - INFO - 成功初始化 qwen LLM
+2026-03-27 15:42:53,002 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 15:42:53,003 - ERROR - [main_router_node] Failed after 0.00s: [Errno 2] No such file or directory: 'prompts\\system_main_router.md'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 53, in main_router_node
+    system_prompt = PromptTemplate.from_file(
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_file="prompts/system_main_router.md",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        encoding="utf-8"
+        ^^^^^^^^^^^^^^^^
+    ).template
+    ^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_core\prompts\prompt.py", line 253, in from_file
+    template = Path(template_file).read_text(encoding=encoding)
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'prompts\\system_main_router.md'
+2026-03-27 15:47:38,056 - INFO - 成功初始化 qwen LLM
+2026-03-27 15:47:38,087 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 15:47:38,088 - ERROR - [main_router_node] Failed after 0.00s: unsupported operand type(s) for +: 'WindowsPath' and 'str'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 57, in main_router_node
+    template_file=current_dir + "prompts/system_main_router.md",
+                  ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for +: 'WindowsPath' and 'str'
+2026-03-27 15:48:44,318 - INFO - 成功初始化 qwen LLM
+2026-03-27 15:48:44,346 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 15:48:49,753 - INFO - main_router输出
+2026-03-27 15:48:49,754 - INFO - content='```json\n{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}\n```' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 43, 'prompt_tokens': 311, 'total_tokens': 354, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-d07933fc-a639-9c7f-94d5-b85531c8d5e6', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2e44-58c5-7322-936a-18f2fcad0d40-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 311, 'output_tokens': 43, 'total_tokens': 354, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 15:48:49,754 - INFO - [main_router_node] Completed in 5.41s
+2026-03-27 15:48:49,756 - INFO - [chat_node] Started with args: ({'messages': [HumanMessage(content='```json\n{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}\n```', additional_kwargs={}, response_metadata={}, id='b4e6a999-9ed0-4043-b7bb-b124f9f7b5a2')], 'history': 'user:lalala\n system:nihao', 'message': '你好'},), kwargs: {}
+2026-03-27 15:48:51,752 - INFO - chat_agent输出
+2026-03-27 15:48:51,753 - INFO - content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 40, 'prompt_tokens': 93, 'total_tokens': 133, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-38e223e0-4b03-9efa-8091-111bcc7148f8', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2e44-6ddd-70c3-9840-faa581957f1d-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 93, 'output_tokens': 40, 'total_tokens': 133, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 15:48:51,754 - INFO - [chat_node] Completed in 2.00s
+2026-03-27 15:48:51,755 - INFO - [output_node] Started with args: ({'messages': [HumanMessage(content='```json\n{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}\n```', additional_kwargs={}, response_metadata={}, id='b4e6a999-9ed0-4043-b7bb-b124f9f7b5a2'), HumanMessage(content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='346c1d59-7389-4773-b94f-73daa80308c9')], 'history': 'user:lalala\n system:nihao', 'message': '你好'},), kwargs: {}
+2026-03-27 15:48:51,756 - INFO - [output_node] Completed in 0.00s
+2026-03-27 15:48:51,757 - INFO - workflow结束
+2026-03-27 15:48:51,758 - INFO - {'messages': [HumanMessage(content='```json\n{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}\n```', additional_kwargs={}, response_metadata={}, id='b4e6a999-9ed0-4043-b7bb-b124f9f7b5a2'), HumanMessage(content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='346c1d59-7389-4773-b94f-73daa80308c9')], 'history': 'user:lalala\n system:nihao', 'message': '你好', 'response': HumanMessage(content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='346c1d59-7389-4773-b94f-73daa80308c9')}
+2026-03-27 15:49:37,085 - INFO - 成功初始化 qwen LLM
+2026-03-27 15:49:37,116 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-27 15:49:40,681 - INFO - main_router输出
+2026-03-27 15:49:40,683 - INFO - content='{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 39, 'prompt_tokens': 311, 'total_tokens': 350, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-822fcc00-767c-91ac-999e-a7c37e073cd1', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2e45-26de-72b0-87b4-586081b468c9-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 311, 'output_tokens': 39, 'total_tokens': 350, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 15:49:40,684 - INFO - [main_router_node] Completed in 3.57s
+2026-03-27 15:49:40,687 - INFO - [chat_node] Started with args: ({'messages': [HumanMessage(content='{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}', additional_kwargs={}, response_metadata={}, id='537a6944-6ff1-4f5e-85d6-42cdc2edaf7c')], 'history': 'user:lalala\n system:nihao', 'message': '你好'},), kwargs: {}
+2026-03-27 15:49:44,424 - INFO - chat_agent输出
+2026-03-27 15:49:44,425 - INFO - content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 40, 'prompt_tokens': 93, 'total_tokens': 133, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-663a9081-095d-9400-acd4-282c677aab03', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d2e45-34d0-7eb2-bcf8-afe002dd959a-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 93, 'output_tokens': 40, 'total_tokens': 133, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-27 15:49:44,426 - INFO - [chat_node] Completed in 3.74s
+2026-03-27 15:49:44,427 - INFO - [output_node] Started with args: ({'messages': [HumanMessage(content='{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}', additional_kwargs={}, response_metadata={}, id='537a6944-6ff1-4f5e-85d6-42cdc2edaf7c'), HumanMessage(content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='6e126087-1720-4220-99f0-d3d5a2447b0a')], 'history': 'user:lalala\n system:nihao', 'message': '你好'},), kwargs: {}
+2026-03-27 15:49:44,428 - INFO - [output_node] Completed in 0.00s
+2026-03-27 15:49:44,429 - INFO - workflow结束
+2026-03-27 15:49:44,430 - INFO - {'messages': [HumanMessage(content='{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}', additional_kwargs={}, response_metadata={}, id='537a6944-6ff1-4f5e-85d6-42cdc2edaf7c'), HumanMessage(content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='6e126087-1720-4220-99f0-d3d5a2447b0a')], 'history': 'user:lalala\n system:nihao', 'message': '你好', 'response': HumanMessage(content='您好呀！  \n很高兴见到您～请问今天有什么我可以帮您挑选或者解答的吗？无论是商品推荐、优惠活动，还是订单问题，我都在这儿随时为您服务哦！', additional_kwargs={}, response_metadata={}, id='6e126087-1720-4220-99f0-d3d5a2447b0a')}
+2026-03-30 16:27:01,172 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:27:01,409 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 16:27:01,410 - ERROR - [main_router_node] Failed after 0.00s: unhashable type: 'dict'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 39, in main_router_node
+    graph_builder = MainRouterWorkflow(state)
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_workflow.py", line 22, in __init__
+    super().__init__(state)
+    ~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 248, in __init__
+    self._add_schema(self.state_schema)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 259, in _add_schema
+    if schema not in self.schemas:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'dict'
+2026-03-30 16:28:02,557 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:28:02,592 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 16:28:02,592 - ERROR - [main_router_node] Failed after 0.00s: unhashable type: 'dict'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 39, in main_router_node
+    graph_builder = MainRouterWorkflow(state)
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_workflow.py", line 22, in __init__
+    super().__init__(state)
+    ~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 248, in __init__
+    self._add_schema(self.state_schema)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 259, in _add_schema
+    if schema not in self.schemas:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'dict'
+2026-03-30 16:38:31,041 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:38:31,076 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 16:38:31,077 - ERROR - [main_router_node] Failed after 0.00s: unhashable type: 'dict'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 39, in main_router_node
+    graph_builder = MainRouterWorkflow(state)
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_workflow.py", line 22, in __init__
+    super().__init__(state)
+    ~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 248, in __init__
+    self._add_schema(self.state_schema)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 259, in _add_schema
+    if schema not in self.schemas:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'dict'
+2026-03-30 16:41:03,200 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:42:27,537 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:42:27,569 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 16:42:27,570 - ERROR - [main_router_node] Failed after 0.00s: unhashable type: 'dict'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 36, in main_router_node
+    graph_builder = MainRouterWorkflow(state)
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_workflow.py", line 22, in __init__
+    super().__init__(state)
+    ~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 248, in __init__
+    self._add_schema(self.state_schema)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 259, in _add_schema
+    if schema not in self.schemas:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'dict'
+2026-03-30 16:44:04,562 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:44:04,593 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 16:44:04,594 - ERROR - [main_router_node] Failed after 0.00s: unhashable type: 'dict'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 39, in main_router_node
+    graph_builder = MainRouterWorkflow(state_)
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_workflow.py", line 22, in __init__
+    super().__init__(state)
+    ~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 248, in __init__
+    self._add_schema(self.state_schema)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 259, in _add_schema
+    if schema not in self.schemas:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'dict'
+2026-03-30 16:46:05,689 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:46:05,719 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 16:46:05,720 - ERROR - [main_router_node] Failed after 0.00s: unhashable type: 'dict'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 39, in main_router_node
+    graph_builder = MainRouterWorkflow(state_)
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_workflow.py", line 22, in __init__
+    super().__init__(state)
+    ~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 248, in __init__
+    self._add_schema(self.state_schema)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 259, in _add_schema
+    if schema not in self.schemas:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'dict'
+2026-03-30 16:46:57,554 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:46:57,670 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 16:48:40,395 - ERROR - [main_router_node] Failed after 102.72s: unhashable type: 'dict'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 39, in main_router_node
+    graph_builder = MainRouterWorkflow(state_)
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_workflow.py", line 22, in __init__
+    super().__init__(state)
+    ~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 248, in __init__
+    self._add_schema(self.state_schema)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langgraph\graph\state.py", line 259, in _add_schema
+    if schema not in self.schemas:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'dict'
+2026-03-30 16:50:09,266 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:52:14,510 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:52:14,543 - INFO - [main_router_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:52:14,544 - ERROR - [main_router_node] Failed after 0.00s: 'message'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\main_router_agent.py", line 26, in main_router_node
+    message = state["message"]
+              ~~~~~^^^^^^^^^^^
+KeyError: 'message'
+2026-03-30 16:53:13,144 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:53:13,177 - INFO - [main_router_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:53:13,183 - INFO - [main_router_node] Completed in 0.01s
+2026-03-30 16:53:13,185 - INFO - [history_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:53:13,185 - ERROR - [history_node] Failed after 0.00s: 'user_id'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\agents\history_agent\history_agent.py", line 27, in history_node
+    user_id = state["user_id"]
+              ~~~~~^^^^^^^^^^^
+KeyError: 'user_id'
+2026-03-30 16:54:01,112 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:54:01,202 - INFO - [main_router_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:54:12,546 - INFO - [main_router_node] Completed in 11.34s
+2026-03-30 16:54:13,693 - INFO - [history_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:55:00,377 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:55:00,408 - INFO - [main_router_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:55:00,414 - INFO - [main_router_node] Completed in 0.00s
+2026-03-30 16:55:00,416 - INFO - [history_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:55:00,417 - INFO - history_agent输出
+2026-03-30 16:55:00,425 - INFO - 
+2026-03-30 16:55:00,426 - INFO - [history_node] Completed in 0.01s
+2026-03-30 16:55:00,427 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': ''},), kwargs: {}
+2026-03-30 16:55:00,428 - ERROR - [input_check_node] Failed after 0.00s: 'message'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\agents\input_check_agent\input_check_agent.py", line 24, in input_check_node
+    message = state["message"]
+              ~~~~~^^^^^^^^^^^
+KeyError: 'message'
+2026-03-30 16:55:55,018 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:55:55,050 - INFO - [main_router_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:55:55,056 - INFO - [main_router_node] Completed in 0.00s
+2026-03-30 16:55:55,057 - INFO - [history_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:55:55,058 - INFO - history_agent输出
+2026-03-30 16:55:55,059 - INFO - 
+2026-03-30 16:55:55,059 - INFO - [history_node] Completed in 0.00s
+2026-03-30 16:55:55,060 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': ''},), kwargs: {}
+2026-03-30 16:55:55,061 - ERROR - [input_check_node] Failed after 0.00s: 'message'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\agents\input_check_agent\input_check_agent.py", line 24, in input_check_node
+    message = state["message"]
+              ~~~~~^^^^^^^^^^^
+KeyError: 'message'
+2026-03-30 16:56:18,578 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:56:18,607 - INFO - [main_router_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:56:18,612 - INFO - [main_router_node] Completed in 0.00s
+2026-03-30 16:56:18,614 - INFO - [history_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:56:18,615 - INFO - history_agent输出
+2026-03-30 16:56:18,616 - INFO - 
+2026-03-30 16:56:18,616 - INFO - [history_node] Completed in 0.00s
+2026-03-30 16:56:18,617 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': ''},), kwargs: {}
+2026-03-30 16:56:18,618 - ERROR - [input_check_node] Failed after 0.00s: 'message'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\agents\input_check_agent\input_check_agent.py", line 24, in input_check_node
+    message = state["message"]
+              ~~~~~^^^^^^^^^^^
+KeyError: 'message'
+2026-03-30 16:57:13,282 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:57:13,314 - INFO - [main_router_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:57:13,319 - INFO - [main_router_node] Completed in 0.00s
+2026-03-30 16:57:13,321 - INFO - [history_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:57:13,322 - INFO - history_agent输出
+2026-03-30 16:57:13,323 - INFO - 
+2026-03-30 16:57:13,323 - INFO - [history_node] Completed in 0.00s
+2026-03-30 16:57:13,324 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': ''},), kwargs: {}
+2026-03-30 16:57:13,335 - ERROR - [input_check_node] Failed after 0.01s: name 'message' is not defined
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\agents\input_check_agent\input_check_agent.py", line 33, in input_check_node
+    {"role": "user", "content": message}
+                                ^^^^^^^
+NameError: name 'message' is not defined
+2026-03-30 16:57:37,492 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:57:37,522 - INFO - [main_router_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:57:37,528 - INFO - [main_router_node] Completed in 0.01s
+2026-03-30 16:57:37,530 - INFO - [history_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:57:37,530 - INFO - history_agent输出
+2026-03-30 16:57:37,531 - INFO - 
+2026-03-30 16:57:37,532 - INFO - [history_node] Completed in 0.00s
+2026-03-30 16:57:37,533 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': ''},), kwargs: {}
+2026-03-30 16:57:41,068 - INFO - input_check_agent输出
+2026-03-30 16:57:41,069 - INFO - ```json
+{
+  "valid": false,
+  "reason": "输入为空",
+  "original": ""
+}
+```
+2026-03-30 16:57:41,070 - INFO - [input_check_node] Completed in 3.54s
+2026-03-30 16:57:41,071 - INFO - [main_cognition_node] Started with args: ({'messages': [], 'history': '', 'input_illegal': '```json\n{\n  "valid": false,\n  "reason": "输入为空",\n  "original": ""\n}\n```'},), kwargs: {}
+2026-03-30 16:57:41,072 - ERROR - [main_cognition_node] Failed after 0.00s: 'message'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\agents\main_cognition_agent\main_cognition_agent.py", line 27, in main_cognition_node
+    message = state["message"]
+              ~~~~~^^^^^^^^^^^
+KeyError: 'message'
+2026-03-30 16:57:58,782 - INFO - 成功初始化 qwen LLM
+2026-03-30 16:57:58,822 - INFO - [main_router_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:57:58,828 - INFO - [main_router_node] Completed in 0.01s
+2026-03-30 16:57:58,830 - INFO - [history_node] Started with args: ({'messages': []},), kwargs: {}
+2026-03-30 16:57:58,831 - INFO - history_agent输出
+2026-03-30 16:57:58,832 - INFO - 
+2026-03-30 16:57:58,833 - INFO - [history_node] Completed in 0.00s
+2026-03-30 16:57:58,835 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': ''},), kwargs: {}
+2026-03-30 16:58:00,827 - INFO - input_check_agent输出
+2026-03-30 16:58:00,828 - INFO - ```json
+{
+  "valid": false,
+  "reason": "输入为空",
+  "original": ""
+}
+```
+2026-03-30 16:58:00,829 - INFO - [input_check_node] Completed in 1.99s
+2026-03-30 16:58:00,830 - INFO - [main_cognition_node] Started with args: ({'messages': [], 'history': '', 'input_illegal': '```json\n{\n  "valid": false,\n  "reason": "输入为空",\n  "original": ""\n}\n```'},), kwargs: {}
+2026-03-30 16:58:05,373 - INFO - main_cognition输出
+2026-03-30 16:58:05,374 - INFO - content='{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户未输入任何内容，视为中性状态，默认归类为简单聊天意图"\n}' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 42, 'prompt_tokens': 308, 'total_tokens': 350, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-7f81901c-95a8-9843-ab23-66f8e5af3e94', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3df6-d907-71d2-93e2-851b15acc383-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 308, 'output_tokens': 42, 'total_tokens': 350, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 16:58:05,385 - ERROR - [main_cognition_node] Failed after 4.55s: 'str' object has no attribute 'intent'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\agents\main_cognition_agent\main_cognition_agent.py", line 49, in main_cognition_node
+    "cognition": result.intent
+                 ^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'intent'
+2026-03-30 16:59:36,786 - INFO - 成功初始化 qwen LLM
+2026-03-30 17:01:10,789 - INFO - 成功初始化 qwen LLM
+2026-03-30 17:01:10,819 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:01:10,825 - INFO - [main_router_node] Completed in 0.00s
+2026-03-30 17:01:10,827 - INFO - [history_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:01:10,828 - INFO - history_agent输出
+2026-03-30 17:01:10,828 - INFO - 
+2026-03-30 17:01:10,829 - INFO - [history_node] Completed in 0.00s
+2026-03-30 17:01:10,830 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': '', 'message': '你好'},), kwargs: {}
+2026-03-30 17:01:13,556 - INFO - input_check_agent输出
+2026-03-30 17:01:13,556 - INFO - ```json
+{
+  "valid": true,
+  "original": "你好",
+  "rewritten": "你好"
+}
+```
+2026-03-30 17:01:13,557 - INFO - [input_check_node] Completed in 2.73s
+2026-03-30 17:01:13,558 - INFO - [main_cognition_node] Started with args: ({'messages': [], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```'},), kwargs: {}
+2026-03-30 17:01:16,471 - INFO - main_cognition输出
+2026-03-30 17:01:16,472 - INFO - content='```json\n{\n  "sentiment_score": 0.0,\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}\n```' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 45, 'prompt_tokens': 309, 'total_tokens': 354, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-d1a66a85-9596-94e2-849f-b87ee0421bc4', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3df9-c9d7-7161-aba8-0783bc09bdc7-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 309, 'output_tokens': 45, 'total_tokens': 354, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 17:01:16,473 - ERROR - [main_cognition_node] Failed after 2.91s: 'str' object has no attribute 'intent'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\main_router_agent\agents\main_cognition_agent\main_cognition_agent.py", line 48, in main_cognition_node
+    "cognition": result.intent
+                 ^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'intent'
+2026-03-30 17:01:37,154 - INFO - 成功初始化 qwen LLM
+2026-03-30 17:01:37,184 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:01:37,190 - INFO - [main_router_node] Completed in 0.00s
+2026-03-30 17:01:37,191 - INFO - [history_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:01:37,192 - INFO - history_agent输出
+2026-03-30 17:01:37,193 - INFO - 
+2026-03-30 17:01:37,194 - INFO - [history_node] Completed in 0.00s
+2026-03-30 17:01:37,195 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': '', 'message': '你好'},), kwargs: {}
+2026-03-30 17:01:39,319 - INFO - input_check_agent输出
+2026-03-30 17:01:39,320 - INFO - ```json
+{
+  "valid": true,
+  "original": "你好",
+  "rewritten": "你好"
+}
+```
+2026-03-30 17:01:39,321 - INFO - [input_check_node] Completed in 2.13s
+2026-03-30 17:01:39,322 - INFO - [main_cognition_node] Started with args: ({'messages': [], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```'},), kwargs: {}
+2026-03-30 17:01:41,171 - INFO - main_cognition输出
+2026-03-30 17:01:41,172 - INFO - content='```json\n{\n  "sentiment_score": 0.0,\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}\n```' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 45, 'prompt_tokens': 309, 'total_tokens': 354, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-2c545c44-9c23-9c80-956c-1cad44401ca9', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3dfa-2e7b-7153-9d99-cfb8563daba3-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 309, 'output_tokens': 45, 'total_tokens': 354, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 17:01:41,173 - INFO - [main_cognition_node] Completed in 1.85s
+2026-03-30 17:01:41,175 - INFO - [chat_node] Started with args: ({'messages': [], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```', 'cognition': '```json\n{\n  "sentiment_score": 0.0,\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}\n```'},), kwargs: {}
+2026-03-30 17:01:41,175 - ERROR - [chat_node] Failed after 0.00s: [Errno 2] No such file or directory: 'D:\\py-workspace\\LLM\\Agent2B\\agents\\chat_agent\\prompts\\system_chat.md'
+Traceback (most recent call last):
+  File "D:\py-workspace\LLM\Agent2B\agents\common\logs.py", line 28, in wrapper
+  File "D:\py-workspace\LLM\Agent2B\agents\chat_agent\chat_agent.py", line 27, in chat_node
+    system_prompt = PromptTemplate.from_file(
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_file=str(current_dir) + "/prompts/system_chat.md",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        encoding="utf-8"
+        ^^^^^^^^^^^^^^^^
+    ).template
+    ^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\site-packages\langchain_core\prompts\prompt.py", line 253, in from_file
+    template = Path(template_file).read_text(encoding=encoding)
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\software\conda\miniconda\envs\Agent2B\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\py-workspace\\LLM\\Agent2B\\agents\\chat_agent\\prompts\\system_chat.md'
+2026-03-30 17:02:37,881 - INFO - 成功初始化 qwen LLM
+2026-03-30 17:02:37,910 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:02:37,916 - INFO - [main_router_node] Completed in 0.00s
+2026-03-30 17:02:37,917 - INFO - [history_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:02:37,918 - INFO - history_agent输出
+2026-03-30 17:02:37,918 - INFO - 
+2026-03-30 17:02:37,919 - INFO - [history_node] Completed in 0.00s
+2026-03-30 17:02:37,920 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': '', 'message': '你好'},), kwargs: {}
+2026-03-30 17:02:40,019 - INFO - input_check_agent输出
+2026-03-30 17:02:40,020 - INFO - ```json
+{
+  "valid": true,
+  "original": "你好",
+  "rewritten": "你好"
+}
+```
+2026-03-30 17:02:40,021 - INFO - [input_check_node] Completed in 2.10s
+2026-03-30 17:02:40,022 - INFO - [main_cognition_node] Started with args: ({'messages': [], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```'},), kwargs: {}
+2026-03-30 17:02:43,178 - INFO - main_cognition输出
+2026-03-30 17:02:43,179 - INFO - content='{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 39, 'prompt_tokens': 309, 'total_tokens': 348, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-32f365d4-b24f-969a-a6f8-01e055daef85', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3dfb-1b97-76d2-9608-8a21fe415b80-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 309, 'output_tokens': 39, 'total_tokens': 348, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 17:02:43,181 - INFO - [main_cognition_node] Completed in 3.16s
+2026-03-30 17:02:43,184 - INFO - [chat_node] Started with args: ({'messages': [], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```', 'cognition': '{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}'},), kwargs: {}
+2026-03-30 17:02:48,343 - INFO - chat_agent输出
+2026-03-30 17:02:48,345 - INFO - content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 35, 'prompt_tokens': 86, 'total_tokens': 121, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-82584fda-88e0-9b01-9479-4e3f31dac13b', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3dfb-27f2-77f3-9a68-8225a1252fa0-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 86, 'output_tokens': 35, 'total_tokens': 121, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 17:02:48,355 - INFO - [chat_node] Completed in 5.17s
+2026-03-30 17:02:48,356 - INFO - [output_node] Started with args: ({'messages': [HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='acc63f23-0f77-411b-8a7d-56d364d03c2b')], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```', 'cognition': '{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}'},), kwargs: {}
+2026-03-30 17:02:48,357 - INFO - [output_node] Completed in 0.00s
+2026-03-30 17:02:48,358 - INFO - workflow结束
+2026-03-30 17:02:48,359 - INFO - {'messages': [HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='acc63f23-0f77-411b-8a7d-56d364d03c2b')], 'history': '', 'message': '你好', 'response': HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='acc63f23-0f77-411b-8a7d-56d364d03c2b'), 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```', 'cognition': '{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}'}
+2026-03-30 17:03:52,506 - INFO - 成功初始化 qwen LLM
+2026-03-30 17:03:55,246 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:03:55,252 - INFO - [main_router_node] Completed in 0.00s
+2026-03-30 17:03:55,254 - INFO - [history_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:03:55,254 - INFO - history_agent输出
+2026-03-30 17:03:55,255 - INFO - 
+2026-03-30 17:03:55,256 - INFO - [history_node] Completed in 0.00s
+2026-03-30 17:03:55,257 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': '', 'message': '你好'},), kwargs: {}
+2026-03-30 17:03:58,991 - INFO - input_check_agent输出
+2026-03-30 17:03:58,992 - INFO - ```json
+{
+  "valid": true,
+  "original": "你好",
+  "rewritten": "你好"
+}
+```
+2026-03-30 17:03:58,993 - INFO - [input_check_node] Completed in 3.73s
+2026-03-30 17:03:58,994 - INFO - [main_cognition_node] Started with args: ({'messages': [], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```'},), kwargs: {}
+2026-03-30 17:04:01,813 - INFO - main_cognition输出
+2026-03-30 17:04:01,814 - INFO - content='{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 39, 'prompt_tokens': 309, 'total_tokens': 348, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-8a25acd6-e7e6-98e9-97be-c37fade80ae8', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3dfc-5013-7b42-8153-1c840e5cf6ac-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 309, 'output_tokens': 39, 'total_tokens': 348, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 17:04:01,815 - INFO - [main_cognition_node] Completed in 2.82s
+2026-03-30 17:04:01,817 - INFO - [chat_node] Started with args: ({'messages': [], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```', 'cognition': '{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}'},), kwargs: {}
+2026-03-30 17:04:05,075 - INFO - chat_agent输出
+2026-03-30 17:04:05,076 - INFO - content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 35, 'prompt_tokens': 86, 'total_tokens': 121, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-c2765873-76bc-9f95-b576-d08801a7612f', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3dfc-5b1a-7c52-8ae9-e5b28b276ff7-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 86, 'output_tokens': 35, 'total_tokens': 121, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 17:04:05,077 - INFO - [chat_node] Completed in 3.26s
+2026-03-30 17:04:05,078 - INFO - [output_node] Started with args: ({'messages': [HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='3923610f-67ef-4287-9395-0014672925d5')], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```', 'cognition': '{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}'},), kwargs: {}
+2026-03-30 17:04:05,079 - INFO - [output_node] Completed in 0.00s
+2026-03-30 17:04:05,080 - INFO - workflow结束
+2026-03-30 17:04:05,081 - INFO - {'messages': [HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='3923610f-67ef-4287-9395-0014672925d5')], 'history': '', 'message': '你好', 'response': HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='3923610f-67ef-4287-9395-0014672925d5'), 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```', 'cognition': '{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}'}
+2026-03-30 17:11:11,689 - INFO - 成功初始化 qwen LLM
+2026-03-30 17:11:12,475 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:11:12,477 - INFO - [history_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:11:12,478 - INFO - history_agent输出
+2026-03-30 17:11:12,478 - INFO - 
+2026-03-30 17:11:12,479 - INFO - [history_node] Completed in 0.00s
+2026-03-30 17:11:12,480 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': '', 'message': '你好'},), kwargs: {}
+2026-03-30 17:11:18,890 - INFO - input_check_agent输出
+2026-03-30 17:11:18,891 - INFO - ```json
+{
+  "valid": true,
+  "original": "你好",
+  "rewritten": "你好"
+}
+```
+2026-03-30 17:11:18,892 - INFO - [input_check_node] Completed in 6.41s
+2026-03-30 17:11:18,894 - INFO - [main_cognition_node] Started with args: ({'messages': [], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```'},), kwargs: {}
+2026-03-30 17:11:29,646 - INFO - main_cognition输出
+2026-03-30 17:11:29,647 - INFO - content='{\n      "sentiment_score": "0",\n      "intent": "chat_agent",\n      "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 39, 'prompt_tokens': 309, 'total_tokens': 348, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-c264aa5d-16b7-9710-83f7-bd3c91f747e1', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3e03-0670-7491-8657-7a4856602646-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 309, 'output_tokens': 39, 'total_tokens': 348, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 17:11:29,648 - INFO - [main_cognition_node] Completed in 10.75s
+2026-03-30 17:11:29,649 - INFO - [main_router_node] Completed in 17.17s
+2026-03-30 17:11:29,650 - INFO - [chat_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:11:31,877 - INFO - chat_agent输出
+2026-03-30 17:11:31,878 - INFO - content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 35, 'prompt_tokens': 86, 'total_tokens': 121, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-fef73a12-8113-9c2e-828f-2cd90d4f0e80', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3e03-3073-7ec2-a67f-69dc2923807f-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 86, 'output_tokens': 35, 'total_tokens': 121, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 17:11:31,879 - INFO - [chat_node] Completed in 2.23s
+2026-03-30 17:11:31,880 - INFO - [output_node] Started with args: ({'messages': [HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='d4e74fb0-fbfc-44da-8d8c-12199a27cbf1')], 'message': '你好'},), kwargs: {}
+2026-03-30 17:11:31,881 - INFO - [output_node] Completed in 0.00s
+2026-03-30 17:11:31,882 - INFO - workflow结束
+2026-03-30 17:11:31,882 - INFO - {'messages': [HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='d4e74fb0-fbfc-44da-8d8c-12199a27cbf1')], 'message': '你好', 'response': HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='d4e74fb0-fbfc-44da-8d8c-12199a27cbf1')}
+2026-03-30 17:12:23,253 - INFO - 成功初始化 qwen LLM
+2026-03-30 17:12:23,290 - INFO - [main_router_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:12:23,292 - INFO - [history_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:12:23,293 - INFO - history_agent输出
+2026-03-30 17:12:23,293 - INFO - 
+2026-03-30 17:12:23,294 - INFO - [history_node] Completed in 0.00s
+2026-03-30 17:12:23,295 - INFO - [input_check_node] Started with args: ({'messages': [], 'history': '', 'message': '你好'},), kwargs: {}
+2026-03-30 17:12:24,985 - INFO - input_check_agent输出
+2026-03-30 17:12:24,986 - INFO - ```json
+{
+  "valid": true,
+  "original": "你好",
+  "rewritten": "你好"
+}
+```
+2026-03-30 17:12:24,987 - INFO - [input_check_node] Completed in 1.69s
+2026-03-30 17:12:24,988 - INFO - [main_cognition_node] Started with args: ({'messages': [], 'history': '', 'message': '你好', 'input_illegal': '```json\n{\n  "valid": true,\n  "original": "你好",\n  "rewritten": "你好"\n}\n```'},), kwargs: {}
+2026-03-30 17:12:27,358 - INFO - main_cognition输出
+2026-03-30 17:12:27,359 - INFO - content='```json\n{\n  "sentiment_score": 0.0,\n  "intent": "chat_agent",\n  "reason": "用户仅进行简单问候，无明显情绪倾向，属于日常聊天"\n}\n```' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 45, 'prompt_tokens': 309, 'total_tokens': 354, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-7ef928f7-1834-917d-9075-acef0b1173eb', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3e04-089d-7372-9a9e-5e01445924b5-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 309, 'output_tokens': 45, 'total_tokens': 354, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 17:12:27,360 - INFO - [main_cognition_node] Completed in 2.37s
+2026-03-30 17:12:27,361 - INFO - [main_router_node] Completed in 4.07s
+2026-03-30 17:12:27,362 - INFO - [chat_node] Started with args: ({'messages': [], 'message': '你好'},), kwargs: {}
+2026-03-30 17:12:29,229 - INFO - chat_agent输出
+2026-03-30 17:12:29,231 - INFO - content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()' additional_kwargs={'refusal': None} response_metadata={'token_usage': {'completion_tokens': 35, 'prompt_tokens': 86, 'total_tokens': 121, 'completion_tokens_details': None, 'prompt_tokens_details': {'audio_tokens': None, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'qwen3-max', 'system_fingerprint': None, 'id': 'chatcmpl-91ffb363-0986-94b6-b679-c203b5162d85', 'finish_reason': 'stop', 'logprobs': None} id='lc_run--019d3e04-11e3-71e1-9e24-e9dec6861ed1-0' tool_calls=[] invalid_tool_calls=[] usage_metadata={'input_tokens': 86, 'output_tokens': 35, 'total_tokens': 121, 'input_token_details': {'cache_read': 0}, 'output_token_details': {}}
+2026-03-30 17:12:29,232 - INFO - [chat_node] Completed in 1.87s
+2026-03-30 17:12:29,235 - INFO - [output_node] Started with args: ({'messages': [HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='ec412ea7-afed-4b4e-b188-a135fdad3496')], 'message': '你好'},), kwargs: {}
+2026-03-30 17:12:29,237 - INFO - [output_node] Completed in 0.00s
+2026-03-30 17:12:29,240 - INFO - workflow结束
+2026-03-30 17:12:29,242 - INFO - {'messages': [HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='ec412ea7-afed-4b4e-b188-a135fdad3496')], 'message': '你好', 'response': HumanMessage(content='您好呀！ 很高兴见到您～  \n今天有什么想了解的商品，或者需要我帮您解决什么问题吗？()', additional_kwargs={}, response_metadata={}, id='ec412ea7-afed-4b4e-b188-a135fdad3496')}
