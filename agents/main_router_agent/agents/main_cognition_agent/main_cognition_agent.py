@@ -21,6 +21,8 @@ def create_main_cognition_agent():
     def main_cognition_node(state: CommonAgentState):
         """
         主路由的意图识别
+        暂定方案1：提示词的方式让大模型提取意图
+        方案2：使用向量模型+分类器。这种方案更快更便宜，准确率可能差点，视情况选择
         :param state:
         :return:
         """

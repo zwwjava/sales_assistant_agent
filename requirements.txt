@@ -4,3 +4,4 @@ python-dotenv==1.0.0
 langchain==1.2.1
 langchain-openai==1.1.6
 concurrent-log-handler==0.9.28
+psycopg2-binary==2.9.11

@@ -104,7 +104,8 @@ def initialize_llm(llm_type: str = DEFAULT_LLM_TYPE) -> tuple[ChatOpenAI, OpenAI
             # 指定后端服务地址
             base_url=config["base_url"],
             # 指定访问后端的 API Key
-            api_key=config["api_key"],
+            # api_key=config["api_key"],
+            api_key=os.getenv("QWEN_API_KEY"),
             # 指定使用的聊天模型名称
             model=config["chat_model"],
             # 控制模型输出的随机性，这里使用统一默认值

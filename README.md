@@ -116,6 +116,5 @@ nanobot/
 所有智能体和子智能体最终都通过HTTP或RCP等协议交互，根据智能体请求压力，随时可以拆分扩容。
 ## Contributing
 
-
-## Citation
+Pull requests are welcome. For big changes, please open an issue first.
 

@@ -13,10 +13,23 @@ logger = LoggerManager.get_logger()
 from pathlib import Path
 current_dir = Path(__file__).resolve().parent
 
+
 def create_main_router_agent():
 
     graph_builder = MainRouterWorkflow(CommonAgentState)
     main_router_agent = graph_builder.compile()
+
+    def print_graph_img(main_router_agent):
+        # 生成状态图
+        try:
+            with open("main_router_agent_diagram.png", "wb") as f:
+                f.write(main_router_agent.get_graph().draw_mermaid_png())
+            print("graph build done")
+        except Exception as e:
+            print(f"graph draw failed, {e}")
+
+    # 工作流
+    # print_graph_img(main_router_agent)
 
     @log_node()
     def main_router_node(state: CommonAgentState):
