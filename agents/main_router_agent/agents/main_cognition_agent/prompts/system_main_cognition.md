@@ -24,12 +24,9 @@
 - intent：识别出的意图（从上述范围中选择）
 - reason：判断理由（简要说明）
 ### 示例输出：
-
-```
 {
       "sentiment_score": "-0.8",
       "intent": "to_human_agent",
       "reason": "用户情绪非常负面，明确要求转人工"
 }
-```
 

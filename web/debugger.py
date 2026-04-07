@@ -32,9 +32,9 @@ def process_question(question: str) -> str:
         机器人的回答
     """
     state = CommonAgentState({
-        "message": "你好",
+        "message": "我想买一双鞋子",
         "user_id": "001",
-        "session_id": "00101"
+        "session_id": "session_001"
     })
     graph_builder = Agents2BWorkflow(CommonAgentState)
     agent = graph_builder.compile()
@@ -45,6 +45,17 @@ def process_question(question: str) -> str:
     state_end = agent.invoke(state)
     logger.info("workflow结束")
     logger.info(state_end)
-    return state_end
+    return state_end.get("response")
 
-process_question("你好")
+    # try:
+    #     state_end = agent.invoke(state)
+    #     logger.info("workflow结束")
+    #     logger.info(state_end)
+    #     return state_end
+    # except Exception as e:
+    #     print(e)
+    # finally:
+    #     pass
+
+response = process_question("你好")
+print(response)

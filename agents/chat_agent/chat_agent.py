@@ -1,5 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 
+from agents.common.common_agent_state import CommonAgentState
 from agents.common.logs import log_node
 from agents.llm_clients import llm
 
@@ -14,7 +15,7 @@ current_dir = Path(__file__).resolve().parent
 def create_chat_agent():
 
     @log_node()
-    def chat_node(state):
+    def chat_node(state: CommonAgentState):
         message = state["message"]
 
         # tools = [
@@ -42,7 +43,7 @@ def create_chat_agent():
             result = result.content
 
         return {
-            "messages": [result],
+            "response": result,
         }
 
     return chat_node

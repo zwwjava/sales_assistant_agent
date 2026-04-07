@@ -19,4 +19,5 @@ class CommonAgentState(MessagesState):
     response: Annotated[str, "最终返回"]
     input_illegal: bool = True
     cognition: Annotated[str, "主识别意图"]
+    recommendation: Annotated[str, "推荐商品"]
 

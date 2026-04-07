@@ -18,11 +18,9 @@
 - 基于电商领域补全省略的关键信息（如主语缺失时补全）
 
 ## 输出格式 json
-```
 {
   "valid": true/false,
   "reason": "违规原因（仅当valid为false时填写）",
   "original": "用户原始输入",
   "rewritten": "改写后的输入（仅当valid为true时返回）"
 }
-```

@@ -1,5 +1,5 @@
 from langchain_core.prompts import PromptTemplate
-
+import orjson
 from agents.common.common_agent_state import CommonAgentState
 from agents.common.logs import log_node
 from agents.llm_clients import llm
@@ -51,7 +51,13 @@ def create_main_router_agent():
         # ]
 
         # 方案1 编码workflow到外部工作流
-        main_router_agent.invoke(state)
+        result = main_router_agent.invoke(state)
+        logger.info("main_router输出")
+        logger.info(result)
+        # 非空判断
+        return {
+            "cognition": result["cognition"]["intent"]
+        }
 
         # 方案2 http调用
         # http 远程调用

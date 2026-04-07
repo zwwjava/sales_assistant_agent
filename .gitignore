@@ -1,8 +1,19 @@
 __pycache__/
 .venv/
 .env.dev
+.idea
 /demo
 /web/logfile/*
 
 agents/llm_clients/llms.py
 /agents/llm_clients/llms.py
+
+# Python 编译文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 或者更全面的忽略
+**/__pycache__/
+**/*.pyc
+**/*.pyo

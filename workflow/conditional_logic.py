@@ -10,11 +10,12 @@ def main_router_cognition(state: CommonAgentState):
     """
     路由节点，根据意图识别结果进行路由，
     """
-    route = AgentNodeType.CHAT_AGENT
+    cognition = AgentNodeType.CHAT_AGENT
 
-    # TODO 根据state中的信息确定跳转的node
+    # 根据state中的信息确定跳转的node
+    cognition = state["cognition"]
 
-    return route
+    return cognition
 
 def main_router_node_list():
     # {

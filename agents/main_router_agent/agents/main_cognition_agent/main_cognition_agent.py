@@ -1,5 +1,5 @@
 from langchain_core.prompts import PromptTemplate
-
+import orjson
 from agents.common.common_agent_state import CommonAgentState
 from agents.common.logs import log_node
 from agents.llm_clients import llm
@@ -43,9 +43,7 @@ def create_main_cognition_agent():
         logger.info("main_cognition输出")
         logger.info(result)
 
-        if len(result.tool_calls) == 0:
-            result = result.content
-
+        result = orjson.loads(result.content)
         return {
             "cognition": result
         }
