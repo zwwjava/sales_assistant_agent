@@ -5,6 +5,7 @@ import uvicorn
 import datetime
 
 from agents.common.common_agent_state import CommonAgentState
+from agents.shopping_agent.shopping_agent import invoke_shopping_agent
 from workflow.agent2b_workflow import Agents2BWorkflow
 
 # 创建FastAPI应用
@@ -35,38 +36,23 @@ async def process_question(question: str) -> str:
     Returns:
         机器人的回答
     """
-    state = CommonAgentState({
-        "message": "你好",
-    })
     try:
-        graph_builder = Agents2BWorkflow(CommonAgentState)
-        graph = graph_builder.compile()
-
-        # 生成状态图
-        # try:
-        #     with open("agent_diagram.png", "wb") as f:
-        #         f.write(graph.get_graph().draw_mermaid_png())
-        #     print("graph build done")
-        # except Exception as e:
-        #     print(f"graph draw failed, {e}")
-
-        state_end = await graph.ainvoke(state)
-        # print(state_end["response"].content)
-        return state_end["response"].content
+        result = await invoke_shopping_agent(question)
+        return result
     except Exception as e:
         print(e)
-    finally:
-        # ------- 用于output.log输出，记录输入输出记录 -------------------
-        pass
+    # finally:
+    #     # ------- 用于output.log输出，记录输入输出记录 -------------------
+    #     pass
 
 
 # 定义API路由
-@app.post("/v1/chat", response_model=AnswerResponse)
-def chat(request: QuestionRequest):
-    """问答接口，处理用户问题"""
+@app.post("/v1/shopping", response_model=AnswerResponse)
+async def shopping(request: QuestionRequest):
+    """导购接口，处理用户问题"""
     try:
         # 处理用户问题
-        answer = process_question(request.question)
+        answer = await process_question(request.question)
 
         # 构建响应
         response = AnswerResponse(
@@ -89,10 +75,11 @@ def chat(request: QuestionRequest):
 # 定义API路由
 @app.get("/v1/chat/{message}", response_model=AnswerResponse)
 async def chat(message: str):
-    """问答接口，处理用户问题"""
+    """导购接口，处理用户问题"""
     try:
         # 处理用户问题
         answer = await process_question(message)
+        print(answer)
         # answer = process_question(message)
 
         # 构建响应
@@ -135,4 +122,5 @@ def status_check():
     }
 
 if __name__ == "__main__":
-    uvicorn.run("web.main:app", host="0.0.0.0", port=8000)
+    uvicorn.run("shopping_web:app", host="0.0.0.0", port=8002)
+    # result = chat("衣服")

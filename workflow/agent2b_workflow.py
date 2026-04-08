@@ -8,7 +8,7 @@ from agents.after_sales_agent.after_sales_agent import create_after_sales_agent
 from agents.chat_agent.chat_agent import create_chat_agent
 from agents.main_router_agent.main_router_agent import create_main_router_agent
 from agents.output_agent.output_agent import create_output_agent
-from agents.shopping_agent.shopping_agent import create_shopping_agent
+from agents.shopping_agent.shopping_node import create_shopping_agent
 from agents.to_human_agent.to_human_agent import create_to_human_agent
 from .dict import AgentNodeType
 from workflow.conditional_logic import main_router_cognition, main_router_node_list

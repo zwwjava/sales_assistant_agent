@@ -3,9 +3,6 @@ import os
 
 
 
-# Author:@南哥AGI研习社 (B站 or YouTube 搜索“南哥AGI研习社”)
-
-
 # 定义一个统一配置类，用于集中管理项目中的所有常量配置
 class Config:
     # 配置日志文件路径，用于持久化存储应用运行日志

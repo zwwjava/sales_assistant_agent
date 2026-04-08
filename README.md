@@ -99,7 +99,7 @@ pip install -r requirements.txt
 # 启动debugger测试
 python web.debugger.py
 # 启动web，访问 http://localhost:8000/v1/chat/你好
-python web.main.py
+python web.shopping_web.py
 ```
 
 

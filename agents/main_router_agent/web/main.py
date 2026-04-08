@@ -5,6 +5,7 @@ import uvicorn
 import datetime
 
 from agents.common.common_agent_state import CommonAgentState
+from agents.main_router_agent.main_router_workflow import MainRouterWorkflow
 from workflow.agent2b_workflow import Agents2BWorkflow
 
 # 创建FastAPI应用
@@ -29,7 +30,7 @@ class AnswerResponse(BaseModel):
 # 问答处理函数
 async def process_question(question: str) -> str:
     """处理用户问题的核心逻辑
-    这里可以替换为实际的问答逻辑，例如调用大模型或知识库查询
+    主体请求处理
     Args:
         question: 用户提出的问题
     Returns:
@@ -39,8 +40,8 @@ async def process_question(question: str) -> str:
         "message": "你好",
     })
     try:
-        graph_builder = Agents2BWorkflow(CommonAgentState)
-        graph = graph_builder.compile()
+        graph_builder = MainRouterWorkflow(CommonAgentState)
+        main_router_agent = graph_builder.compile()
 
         # 生成状态图
         # try:
@@ -50,7 +51,7 @@ async def process_question(question: str) -> str:
         # except Exception as e:
         #     print(f"graph draw failed, {e}")
 
-        state_end = await graph.ainvoke(state)
+        state_end = await main_router_agent.ainvoke(state)
         # print(state_end["response"].content)
         return state_end["response"].content
     except Exception as e:
@@ -61,12 +62,12 @@ async def process_question(question: str) -> str:
 
 
 # 定义API路由
-@app.post("/v1/chat", response_model=AnswerResponse)
-async def chat(request: QuestionRequest):
+@app.post("/v1/main_router", response_model=AnswerResponse)
+def chat(request: QuestionRequest):
     """问答接口，处理用户问题"""
     try:
         # 处理用户问题
-        answer = await process_question(request.question)
+        answer = process_question(request.question)
 
         # 构建响应
         response = AnswerResponse(
@@ -87,7 +88,7 @@ async def chat(request: QuestionRequest):
 
 
 # 定义API路由
-@app.get("/v1/chat/{message}", response_model=AnswerResponse)
+@app.get("/v1/main_router/{message}", response_model=AnswerResponse)
 async def chat(message: str):
     """问答接口，处理用户问题"""
     try:
@@ -135,4 +136,4 @@ def status_check():
     }
 
 if __name__ == "__main__":
-    uvicorn.run("web.main:app", host="0.0.0.0", port=8000)
+    uvicorn.run("web.main:app", host="0.0.0.0", port=8001)
